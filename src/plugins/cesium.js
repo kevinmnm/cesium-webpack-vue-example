@@ -8,6 +8,8 @@ import 'cesium/Widgets/widgets.css';
 const CesiumPlugin = {
    install: function (Vue, options) {
       const accessToken = options.accessToken || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmYTQ2MmRmYy1iMmU2LTQwMzQtYjJiZi02NGY3ZTIyYzNhMDQiLCJpZCI6NzM2NTMsImlhdCI6MTYzNzA5MDk3N30.fCOrQKIlHEatEZk63libsMkWdxOBsKRo297ibGtRVgs';
+      // const accessToken = '';
+      options;
 
       Vue.component('cesium-component', CesiumComponent);
 
