@@ -1,5 +1,10 @@
 <template>
-   <v-sheet ref="cesium_component" width="100%" :height="cesium_height" outlined>
+   <v-sheet
+      ref="cesium_component"
+      width="100%"
+      :height="cesium_height"
+      outlined
+   >
       <div
          id="cesium_container"
          ref="cesium_container"
@@ -51,8 +56,6 @@ import logo from "@/assets/logo.png";
 // console.log(airplane);
 // import * as ischecker from 'is-checker';
 // ischecker
-
-console.log(globalThis);
 
 export default {
    name: "CesiumComponent",
@@ -310,6 +313,28 @@ export default {
          shadows: true,
       });
 
+      viewer.extend(Cesium.viewerCesiumInspectorMixin);
+      viewer.extend(Cesium.viewerDragDropMixin);
+      viewer.extend(Cesium.viewerPerformanceWatchdogMixin, {
+         lowFrameRateMessage: "Why is this going so <em>slowly</em>?",
+      });
+
+      const frameRateMonitor = new Cesium.FrameRateMonitor({
+         scene: viewer.scene,
+      });
+      frameRateMonitor.lowFrameRate.addEventListener( scene => {
+         console.log('Low frame rate!', scene);
+      });
+
+      // const glb = Cesium.Model.fromGltf({
+      //    url: 'src/assets/glb/Cesium_Air.glb',
+      //    // url: 'http://locsalhost:8080/src/assets/glb/Cesium_Air.glb',
+      //    show: true,
+      //    ready: true,
+      // });
+
+      // viewer.scene.primitives.add(glb);
+
       // var credit = new Cesium.Credit(
       //    "Title", true
       // );
@@ -351,7 +376,6 @@ export default {
          },
       });
       console.log(Cesium.Color.RED);
-      
 
       viewer.entities.add({
          name: "Citizens Bank Park",
@@ -439,9 +463,9 @@ export default {
       this.configureScreenSpaceEventHandler();
       this.initializeGlobalOptions();
 
-      viewer.selectedEntityChanged.addEventListener( entity => {
+      viewer.selectedEntityChanged.addEventListener((entity) => {
          // viewer.trackedEntity = entity;
-         console.log({entity});
+         console.log({ entity });
       });
    },
 

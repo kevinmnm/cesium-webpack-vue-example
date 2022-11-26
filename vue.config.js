@@ -15,6 +15,8 @@ module.exports = defineConfig({
          // cesium: path.resolve(__dirname, 'node_modules', 'cesium'),
          cesium: path.resolve(__dirname, cesiumSource),
       }
+      // config.target = 'node';
+      console.log(config.target);
       config.resolve.mainFiles = ['index', 'Cesium'];
       config.plugins = [
          ...config.plugins,
@@ -37,23 +39,23 @@ module.exports = defineConfig({
       ];
       console.log(config.module.rules[1].use);
 
-      // config.module.rules.push({
-      //    test: /\.(glb|gltf)$/,
-      //    use:
-      //       [
-      //          {
-      //             loader: 'file-loader',
-      //             options:
-      //             {
-      //                outputPath: 'assets/glb/'
-      //             }
-      //          }
-      //       ]
-      // });
+      config.module.rules.push({
+         test: /\.(glb|gltf)$/,
+         use:
+            [
+               {
+                  loader: 'file-loader',
+                  options:
+                  {
+                     outputPath: 'assets/glb/'
+                  }
+               }
+            ]
+      });
    },
    // chainWebpack: config => {
-      // console.log(config);
-      // config.module.rule('glb').test(/\.(glb|gltf)$/).use('assets/glb')
+   // console.log(config);
+   // config.module.rule('glb').test(/\.(glb|gltf)$/).use('assets/glb')
    // },
    // devServer: {
    //    https: true,

@@ -10,6 +10,16 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+  {
+   path: '/test',
+   name: 'test',
+   component: () => import(/* webpackChunkName: "test" */ '../views/TestView.vue'),
+  },
+  {
+   path: '/tutorial',
+   name: 'tutorial',
+   component: () => import(/* webpackChunkName: "tutorial" */'../views/TutorialView.vue'),
+  }
 //   {
 //     path: '/about',
 //     name: 'about',

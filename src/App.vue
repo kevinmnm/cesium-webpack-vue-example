@@ -10,7 +10,7 @@
             <v-icon>mdi-home-outline</v-icon>
          </v-btn>
          <v-menu offset-y>
-            <template v-slot:activator="{on, attrs}">
+            <template v-slot:activator="{ on, attrs }">
                <v-btn icon tile v-on="on" v-bind="attrs">
                   <v-icon>mdi-cog</v-icon>
                </v-btn>
@@ -18,9 +18,15 @@
             <v-sheet>
                <v-list>
                   <v-list-item-group v-model="control_mode">
-                     <v-list-item v-for="(mode, index) in control_modes" :key="index" :value="mode.mode">
+                     <v-list-item
+                        v-for="(mode, index) in control_modes"
+                        :key="index"
+                        :value="mode.mode"
+                     >
                         <v-list-item-content>
-                           <v-list-item-title>{{ mode.mode }}</v-list-item-title>
+                           <v-list-item-title>{{
+                              mode.mode
+                           }}</v-list-item-title>
                         </v-list-item-content>
                      </v-list-item>
                   </v-list-item-group>
@@ -29,24 +35,53 @@
          </v-menu>
       </v-app-bar>
       <v-navigation-drawer v-model="drawer" absolute bottom temporary>
-         <v-list nav dense> </v-list>
+         <v-list nav dense>
+            <!-- <v-list-item link :to="{name: 'home'}">
+               <v-list-item-content>
+                  <v-list-item-title
+                     >HOME</v-list-item-title
+                  >
+               </v-list-item-content>
+            </v-list-item>
+            <v-list-item link :to="{name: 'test'}">
+               <v-list-item-content>
+                  <v-list-item-title
+                     >TEST</v-list-item-title
+                  >
+               </v-list-item-content>
+            </v-list-item> -->
+            <v-list-item link @click="routeChange('home')">
+               <v-list-item-content>
+                  <v-list-item-title>HOME</v-list-item-title>
+               </v-list-item-content>
+            </v-list-item>
+            <v-list-item link @click="routeChange('test')">
+               <v-list-item-content>
+                  <v-list-item-title>TEST</v-list-item-title>
+               </v-list-item-content>
+            </v-list-item>
+            <v-list-item link @click="routeChange('tutorial')">
+               <v-list-item-content>
+                  <v-list-item-title>TUTORIAL</v-list-item-title>
+               </v-list-item-content>
+            </v-list-item>
+         </v-list>
       </v-navigation-drawer>
-      <v-main >
+      <v-main>
          <router-view />
       </v-main>
    </v-app>
 </template>
 
 <script>
+import $router from "./router/index.js";
+
 export default {
    name: "App",
 
    data: () => ({
       drawer: false,
-      control_modes: [
-         {mode: 'none'},
-         { mode: 'draw' },
-      ],
+      control_modes: [{ mode: "none" }, { mode: "draw" }],
    }),
 
    computed: {
@@ -61,7 +96,7 @@ export default {
             return this.$store.state.control_mode;
          },
          set(mode) {
-            this.$store.commit('CONTROL_MODE', mode);
+            this.$store.commit("CONTROL_MODE", mode);
          },
       },
    },
@@ -69,6 +104,9 @@ export default {
    methods: {
       flyToMyLocation() {
          this.$store.dispatch("flyTo");
+      },
+      routeChange(name) {
+         $router.push({ name });
       },
    },
 };
